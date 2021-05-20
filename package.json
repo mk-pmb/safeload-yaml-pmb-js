@@ -1,0 +1,37 @@
+{ "name": "safeload-yaml-pmb",
+  "version": "4.210519.0",
+  "description": "Re-export my current favorite safe YAML loading function. Bridges the gap between js-yaml v3 and v4.",
+  "keywords": [],
+
+  "author": "M.K. (https://github.com/mk-pmb)",
+  "homepage": "https://github.com/mk-pmb/safeload-yaml-pmb-js/#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mk-pmb/safeload-yaml-pmb-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mk-pmb/safeload-yaml-pmb-js/issues"
+  },
+  "contributors": [],
+
+  "private": false, "license": "ISC",
+
+  "scripts": {
+    "lint": "elp",
+    "test": "elp && nodemjs test/all.mjs"
+  },
+  "directories": { "test": "test" },
+  "eslintConfig": { "extends": "nodejs-pmb" },
+
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "eslint-config-nodejs-pmb": "^0.0.6",
+    "eslint-pretty-pmb": "^1.0.2",
+    "nodemjs": "^0.1.9"
+  },
+
+
+  "npm vs. BOM = Unexpected token": "-*- coding: UTF-8 -*-"
+}
