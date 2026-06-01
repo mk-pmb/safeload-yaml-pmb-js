@@ -24,14 +24,15 @@
   "eslintConfig": { "extends": "nodejs-pmb" },
 
   "dependencies": {
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.2.0"
   },
   "devDependencies": {
-    "eslint-config-nodejs-pmb": "^0.0.6",
-    "eslint-pretty-pmb": "^1.0.2",
-    "nodemjs": "^0.1.9"
+    "eslint-config-nodejs-pmb": "^0.3.14",
+    "eslint-plugin-json-light-pmb": "^1.0.7",
+    "eslint-plugin-n": "^17.16.2",
+    "eslint-pretty-pmb": "^1.0.7"
   },
 
 
-  "npm vs. BOM = Unexpected token": "-*- coding: UTF-8 -*-"
+  "engines": { "npm": ">=7.0.0", "node": ">=24.0.0" }
 }

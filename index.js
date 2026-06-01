@@ -14,19 +14,22 @@ function checkFunc(func, nArgs, stmt1ex) {
 
 
 function findSafeLoadFunc() {
-  var lib = require('js-yaml'), sl = lib.safeLoad, ld = lib.load;
+  const lib = require('js-yaml');
+  const sl = lib.safeLoad;
+  const ld = lib.load;
 
   // ["Why not check the major version number?"](docs/why_not_major_version.md)
 
   if (checkFunc(sl, 2, 'return')) { return sl; }
+  if (checkFunc(sl, 0, 'throw') && checkFunc(ld, 2, 'const')) { return ld; }
   if (checkFunc(sl, 0, 'throw') && checkFunc(ld, 2, 'return')) { return ld; }
   if (checkFunc(sl, 0, 'throw') && checkFunc(ld, 2, 'var')) { return ld; }
 
   (function fail() {
-    var msg = 'YAML library has an unexpected, unsupported API.',
-      funcNames = ['load', 'safeLoad'];
-    funcNames.forEach(function (funcName) {
-      var code = String(lib[funcName]).replace(/\s+/g, ' ');
+    let msg = 'YAML library has an unexpected, unsupported API.';
+    const funcNames = ['load', 'safeLoad'];
+    funcNames.forEach(function each(funcName) {
+      const code = String(lib[funcName]).replace(/\s+/g, ' ');
       msg += '\n\tHint: ' + funcName + ' = «' + code.slice(0, 64);
       if (code.length > 64) { msg += '…'; }
       msg += '» stmt1=' + stmt1(code);
