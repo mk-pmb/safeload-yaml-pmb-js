@@ -1,0 +1,71 @@
+%YAML 1.1
+# ^-- ATTN: [2019-12-31] If you use a later version, Github will fail
+#     with a bogus error message "You have an error in your yaml syntax".
+# -*- coding: UTF-8, tab-width: 2 -*-
+---
+
+name: '☂ CI tests'
+
+on:
+  push:
+    branches:
+      - '*'
+  workflow_dispatch:
+
+jobs:
+  job_npm_test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version:
+          - 24
+
+    env:
+      NM_SLY: safeload-yaml-pmb
+      NM_RDF: read-data-file
+
+    steps:
+      - uses: mk-pmb/github-ci-util-2405-pmb/act/install@v1
+        with:
+          nodejs_version: '${{ matrix.node-version }}'
+
+      - name: 'Clone sl-y.'
+        uses: actions/checkout@v6
+        with:
+          path: 'node_modules/${{ env.NM_SLY }}'
+
+      - name: 'Install sl-y.'
+        working-directory: 'node_modules/${{ env.NM_SLY }}'
+        run: 'ghciu npm install .'
+
+      - name: 'Audit sl-y.'
+        working-directory: 'node_modules/${{ env.NM_SLY }}'
+        run: 'ghciu npm audit'
+
+      - name: 'Lint sl-y.'
+        working-directory: 'node_modules/${{ env.NM_SLY }}'
+        run: 'ghciu npm run lint'
+
+      - name: 'Clone r-d-f so we can borrow its tests.'
+        uses: actions/checkout@v6
+        with:
+          repository: >
+            ${{ env.GHCIU_WFLOW_REPO_OWNER }}/${{ env.NM_RDF }}-node
+          ref: 'stable'
+          path: 'node_modules/${{ env.NM_RDF }}'
+
+      - name: 'Install r-d-f and adjust deps to use the local sl-y.'
+        working-directory: 'node_modules/${{ env.NM_RDF }}'
+        run: 'npm install --no-save file:../${{ env.NM_SLY }}'
+
+      - name: 'Audit r-d-f.'
+        working-directory: 'node_modules/${{ env.NM_RDF }}'
+        run: 'ghciu npm audit'
+
+      - name: 'Test r-d-f to have it implicitly test sl-y.'
+        working-directory: 'node_modules/${{ env.NM_RDF }}'
+        run: ghciu npm test
+
+
+...

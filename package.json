@@ -18,7 +18,7 @@
 
   "scripts": {
     "lint": "elp",
-    "test": "elp && nodemjs test/all.mjs"
+    "test": "echo E: 'See github-ci.yaml for how to actually test.'; exit 2"
   },
   "directories": { "test": "test" },
   "eslintConfig": { "extends": "nodejs-pmb" },
