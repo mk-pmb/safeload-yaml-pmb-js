@@ -1,5 +1,5 @@
 { "name": "safeload-yaml-pmb",
-  "version": "4.210519.0",
+  "version": "4.210519.1",
   "description": "Re-export my current favorite safe YAML loading function. Bridges the gap between js-yaml v3 and v4.",
   "keywords": [],
 
